@@ -13,11 +13,11 @@ namespace CollatzConjecture
             // "Error: Please enter a valid number"
         static int GetInteger(string prompt)
         {
-            while(true)
+            Console.WriteLine(prompt);
+            while (true)
             {
                 try
                 {
-                    Console.WriteLine(prompt);
                     string input = Console.ReadLine();
                     int x = int.Parse(input);
                     if (x > 1)
@@ -38,7 +38,7 @@ namespace CollatzConjecture
             int tries = 0;
             int max = 0;
             int maxstep = 0;
-            int input = GetInteger("Please enter an integer, greater than 1");
+            int input = GetInteger("Please enter an integer, greater than 1.");
             int n = input;
 
             while (n != 1)
@@ -67,8 +67,10 @@ namespace CollatzConjecture
             }
 
             //After loop exits, write results to console
+            Console.WriteLine("======");
             Console.WriteLine("It took " + tries + " steps to reach "+ n +" from " + input + ".");
             Console.WriteLine("The value reaches it's peak of " + max + " at step " + maxstep+".");
+            Console.WriteLine("======");
             Console.ReadLine();
         }
     }

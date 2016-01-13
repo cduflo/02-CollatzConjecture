@@ -8,9 +8,14 @@ namespace CollatzConjecture
 {
     class Program
     {
+        //Define public variables
+        public static int max = 0;
+        public static int maxstep = 0;
+        public static int count = 0;
+
         //Create Input Capture and Validation Method
-            // must be number > 1
-            // "Error: Please enter a valid number"
+        // must be number > 1
+        // "Error: Please enter a valid number"
         static int GetInteger(string prompt)
         {
             Console.WriteLine(prompt);
@@ -24,54 +29,74 @@ namespace CollatzConjecture
                     {
                         return x;
                     }
+                    else
+                    {
+                         Console.WriteLine("Error: Please enter a valid number.");
+                    }
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine("Error: Please enter a valid number.");
                 }
             }
-        }     
+        }
+
+
+        //Define Recursive Method
+        static int Recursive(int value)
+        {
+            int n = value;
+
+            //Update max and maxstep # if n > max
+            if (value > max)
+            {
+               max = n;
+                maxstep = count;
+                    //Console.WriteLine("max= " + max);
+                    //Console.WriteLine("maxstep= " + maxstep);
+            }
+
+            //Transformation and recapture of new n
+            if (n == 1)
+            {
+                return n;
+            }
+
+            if (n % 2 == 0)
+            {
+                n = n / 2;
+            }
+            else
+            {
+                n = (n * 3) + 1;
+            }
+
+            //Counter increment up
+            count++;
+            //Debugging notes
+                //Console.WriteLine("n= " + n);
+                //Console.WriteLine("count= " + count);
+
+            return Recursive(n);
+    }
+
 
         static void Main(string[] args)
         {
             //Set Variables, fetch user input
-            int tries = 0;
-            int max = 0;
-            int maxstep = 0;
             int input = GetInteger("Please enter an integer, greater than 1.");
             int n = input;
 
-            while (n != 1)
-            {
-                //Transformation of n
-                if (n%2 == 0)
-                {
-                    n = n / 2;
-                }
-                else
-                {
-                    n = (n * 3) + 1;
-                }
-       
-                //Increment Tries
-                tries++;
-                
-                //Update max and maxstep # if n > max
-                if (n > max)
-                {
-                    max = n;
-                    maxstep = tries;
-                }
-                 /*Logging the Steps:
-                Console.Write(n + "..."); */
-            }
+            //Call recursive method
+            int alg = Recursive(n);
 
-            //After loop exits, write results to console
+            //Print output to Console
             Console.WriteLine("======");
-            Console.WriteLine("It took " + tries + " steps to reach "+ n +" from " + input + ".");
-            Console.WriteLine("The value reaches it's peak of " + max + " at step " + maxstep+".");
+            Console.WriteLine("It took " + count + " steps to reach "+ alg + " from " + input + ".");
+            Console.WriteLine("The value reaches it's peak of " + max + " at step " + maxstep + ".");
             Console.WriteLine("======");
-            Console.ReadLine();
+
+            Console.ReadLine(); 
         }
     }
 }
